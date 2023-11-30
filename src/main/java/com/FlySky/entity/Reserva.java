@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Reserva {
 
+    //OME PASÓ POR AQUÍ, SOLO COMMIT DE PRUEBA (PROMETO BORRAR EL COMENTARIO XD)
+
     @Id
     private Long idReserva;
 

@@ -1,8 +1,6 @@
 package com.FlySky.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,14 +12,15 @@ import lombok.NoArgsConstructor;
 public class Reserva {
 
     @Id
-    private Long idCompra;
+    private Long idReserva;
 
     private String formaPago;
 
-    @OneToOne // COMPLETAR
+    @OneToOne(mappedBy = "reserva")
     private Asiento asiento;
 
-    @OneToOne // COMPLETAR
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "cliente_id", referencedColumnName = "idCliente", nullable = false)
     private Cliente cliente;
 
 }

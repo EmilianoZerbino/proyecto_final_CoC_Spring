@@ -23,7 +23,7 @@ public class Cliente {
     private String telefono;
     private String email;
 
-    @OneToMany //COMPLETAR
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Reserva> reservas;
 
 }

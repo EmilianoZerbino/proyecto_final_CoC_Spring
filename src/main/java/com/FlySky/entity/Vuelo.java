@@ -13,9 +13,11 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "vuelos")
 public class Vuelo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idVuelo;
 
     private Long numeroVuelo;
@@ -26,13 +28,17 @@ public class Vuelo {
     private LocalDateTime horarioPartida;
     private LocalDateTime horarioLlegada;
 
+    private Integer conexion;
+
     @ManyToOne //COMPLETAR
+    @JoinColumn(name = "aerolinea_id", nullable = false)
     private Aerolinea aerolinea;
 
-    @OneToMany //COMPLETAR
+    @OneToMany(mappedBy = "vuelo", cascade = CascadeType.ALL)
     private List<Asiento> asientos;
 
+    /*
     @ManyToMany //COMPLETAR
     private List<Vuelo> conexiones;
-
+    */
 }

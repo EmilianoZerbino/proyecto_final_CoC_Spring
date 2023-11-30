@@ -1,9 +1,6 @@
 package com.FlySky.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,10 +20,12 @@ public class Asiento {
     private Double precio;
     private Boolean estaDisponible;
 
-    @ManyToOne //COMPLETAR
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "vuelo_id", nullable = false)
     private Vuelo vuelo;
 
-    @OneToOne //COMPLETAR
+    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinColumn(name = "reserva_id", referencedColumnName = "idReserva")
     private Reserva reserva;
 
 }

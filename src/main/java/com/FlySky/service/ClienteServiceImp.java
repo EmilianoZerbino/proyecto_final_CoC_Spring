@@ -7,11 +7,13 @@ import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.entity.Cliente;
 import com.FlySky.repository.IClienteRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ClienteServiceImp implements IClienteService{
 
     IClienteRepository repository;
@@ -26,7 +28,7 @@ public class ClienteServiceImp implements IClienteService{
     public List<ClienteResponseDto> obtenerClientes() {
         List<Cliente> responseEntity = repository.findAll();
         List<ClienteResponseDto> response = new ArrayList<>();
-        responseEntity.stream().forEach(r->response.add(mapper.map(responseEntity, ClienteResponseDto.class)));
+        responseEntity.stream().forEach(r->response.add(mapper.map(r, ClienteResponseDto.class)));
         return response;
     }
 
@@ -44,7 +46,7 @@ public class ClienteServiceImp implements IClienteService{
     }
 
     @Override
-    public ClienteResponseDto editCliente(ClienteRequestConIdDto clienteRequestConIdDto) {
+    public ClienteResponseDto editarCliente(ClienteRequestConIdDto clienteRequestConIdDto) {
         Cliente cliente = mapper.map(clienteRequestConIdDto,Cliente.class);
         Cliente persistCliente = repository.save(cliente);
         return mapper.map(persistCliente, ClienteResponseDto.class);

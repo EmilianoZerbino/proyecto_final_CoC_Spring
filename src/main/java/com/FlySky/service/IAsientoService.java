@@ -12,7 +12,7 @@ public interface IAsientoService {
     List<AsientoResponseDto> obtenerAsientos();
     AsientoResponseDto obtenerAsientoById(long id);
     AsientoResponseDto agregarAsiento(AsientoRequestDto asientoRequestDto);
-    AsientoResponseDto editAsiento(AsientoRequestConIdDto asientoRequestWithIdDto);
+    AsientoResponseDto editarAsiento(AsientoRequestConIdDto asientoRequestWithIdDto);
     MensajeResponseDto borrarAsiento(long id);
 
 }

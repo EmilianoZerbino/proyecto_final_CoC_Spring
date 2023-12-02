@@ -12,7 +12,7 @@ public interface IClienteService {
     List<ClienteResponseDto> obtenerClientes();
     ClienteResponseDto obtenerClienteById(long id);
     ClienteResponseDto agregarCliente(ClienteRequestDto clienteRequestDto);
-    ClienteResponseDto editCliente(ClienteRequestConIdDto clienteRequestWithIdDto);
+    ClienteResponseDto editarCliente(ClienteRequestConIdDto clienteRequestWithIdDto);
     MensajeResponseDto borrarCliente(long id);
 
 }

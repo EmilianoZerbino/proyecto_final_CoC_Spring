@@ -37,8 +37,4 @@ public class Vuelo {
     @OneToMany(mappedBy = "vuelo", cascade = CascadeType.ALL)
     private List<Asiento> asientos;
 
-    /*
-    @ManyToMany //COMPLETAR
-    private List<Vuelo> conexiones;
-    */
 }

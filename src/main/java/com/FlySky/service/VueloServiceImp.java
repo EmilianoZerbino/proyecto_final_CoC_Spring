@@ -7,11 +7,13 @@ import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.entity.Vuelo;
 import com.FlySky.repository.IVueloRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class VueloServiceImp implements IVueloService{
 
     IVueloRepository repository;
@@ -26,7 +28,7 @@ public class VueloServiceImp implements IVueloService{
     public List<VueloResponseDto> obtenerVuelos() {
         List<Vuelo> responseEntity = repository.findAll();
         List<VueloResponseDto> response = new ArrayList<>();
-        responseEntity.stream().forEach(r->response.add(mapper.map(responseEntity, VueloResponseDto.class)));
+        responseEntity.stream().forEach(r->response.add(mapper.map(r, VueloResponseDto.class)));
         return response;
     }
 
@@ -44,7 +46,7 @@ public class VueloServiceImp implements IVueloService{
     }
 
     @Override
-    public VueloResponseDto editVuelo(VueloRequestConIdDto vueloRequestConIdDto) {
+    public VueloResponseDto editarVuelo(VueloRequestConIdDto vueloRequestConIdDto) {
         Vuelo vuelo = mapper.map(vueloRequestConIdDto,Vuelo.class);
         Vuelo persistVuelo = repository.save(vuelo);
         return mapper.map(persistVuelo, VueloResponseDto.class);

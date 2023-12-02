@@ -12,7 +12,7 @@ public interface IAerolineaService {
     List<AerolineaResponseDto> obtenerAerolineas();
     AerolineaResponseDto obtenerAerolineaById(long id);
     AerolineaResponseDto agregarAerolinea(AerolineaRequestDto aerolineaRequestDto);
-    AerolineaResponseDto editAerolinea(AerolineaRequestConIdDto aerolineaRequestWithIdDto);
+    AerolineaResponseDto editarAerolinea(AerolineaRequestConIdDto aerolineaRequestWithIdDto);
     MensajeResponseDto borrarAerolinea(long id);
     
 }

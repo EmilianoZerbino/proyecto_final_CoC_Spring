@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class Asiento {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAsiento;
 
     private Long numeroAsiento;

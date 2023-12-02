@@ -12,7 +12,7 @@ public interface IVueloService {
     List<VueloResponseDto> obtenerVuelos();
     VueloResponseDto obtenerVueloById(long id);
     VueloResponseDto agregarVuelo(VueloRequestDto vueloRequestDto);
-    VueloResponseDto editVuelo(VueloRequestConIdDto vueloRequestWithIdDto);
+    VueloResponseDto editarVuelo(VueloRequestConIdDto vueloRequestWithIdDto);
     MensajeResponseDto borrarVuelo(long id);
 
 }

@@ -7,11 +7,13 @@ import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.entity.Asiento;
 import com.FlySky.repository.IAsientoRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AsientoServiceImp implements IAsientoService{
 
     IAsientoRepository repository;
@@ -26,7 +28,7 @@ public class AsientoServiceImp implements IAsientoService{
     public List<AsientoResponseDto> obtenerAsientos() {
         List<Asiento> responseEntity = repository.findAll();
         List<AsientoResponseDto> response = new ArrayList<>();
-        responseEntity.stream().forEach(r->response.add(mapper.map(responseEntity, AsientoResponseDto.class)));
+        responseEntity.stream().forEach(r->response.add(mapper.map(r, AsientoResponseDto.class)));
         return response;
     }
 
@@ -44,7 +46,7 @@ public class AsientoServiceImp implements IAsientoService{
     }
 
     @Override
-    public AsientoResponseDto editAsiento(AsientoRequestConIdDto asientoRequestConIdDto) {
+    public AsientoResponseDto editarAsiento(AsientoRequestConIdDto asientoRequestConIdDto) {
         Asiento asiento = mapper.map(asientoRequestConIdDto,Asiento.class);
         Asiento persistAsiento = repository.save(asiento);
         return mapper.map(persistAsiento, AsientoResponseDto.class);

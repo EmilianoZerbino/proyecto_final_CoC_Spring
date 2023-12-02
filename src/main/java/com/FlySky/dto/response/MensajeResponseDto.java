@@ -1,10 +1,13 @@
 package com.FlySky.dto.response;
 
-public class MensajeResponseDto {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    public MensajeResponseDto(String mensaje){
-        this.mensaje=mensaje;
-    }
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class MensajeResponseDto {
 
     private String mensaje;
 }

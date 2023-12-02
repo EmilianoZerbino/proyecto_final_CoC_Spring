@@ -7,11 +7,13 @@ import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.entity.Reserva;
 import com.FlySky.repository.IReservaRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ReservaServiceImp implements IReservaService{
 
     IReservaRepository repository;
@@ -26,7 +28,7 @@ public class ReservaServiceImp implements IReservaService{
     public List<ReservaResponseDto> obtenerReservas() {
         List<Reserva> responseEntity = repository.findAll();
         List<ReservaResponseDto> response = new ArrayList<>();
-        responseEntity.stream().forEach(r->response.add(mapper.map(responseEntity, ReservaResponseDto.class)));
+        responseEntity.stream().forEach(r->response.add(mapper.map(r, ReservaResponseDto.class)));
         return response;
     }
 
@@ -44,7 +46,7 @@ public class ReservaServiceImp implements IReservaService{
     }
 
     @Override
-    public ReservaResponseDto editReserva(ReservaRequestConIdDto reservaRequestConIdDto) {
+    public ReservaResponseDto editarReserva(ReservaRequestConIdDto reservaRequestConIdDto) {
         Reserva reserva = mapper.map(reservaRequestConIdDto,Reserva.class);
         Reserva persistReserva = repository.save(reserva);
         return mapper.map(persistReserva, ReservaResponseDto.class);

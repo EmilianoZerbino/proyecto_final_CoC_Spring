@@ -14,9 +14,12 @@ public class Reserva {
     //OME PASÓ POR AQUÍ, SOLO COMMIT DE PRUEBA (PROMETO BORRAR EL COMENTARIO XD)
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idReserva;
 
     private String formaPago;
+
+    private String estado; // Espera - Cumplida - Incumplida - Cancelada
 
     @OneToOne(mappedBy = "reserva")
     private Asiento asiento;

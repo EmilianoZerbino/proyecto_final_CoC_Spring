@@ -12,7 +12,7 @@ public interface IReservaService {
     List<ReservaResponseDto> obtenerReservas();
     ReservaResponseDto obtenerReservaById(long id);
     ReservaResponseDto agregarReserva(ReservaRequestDto reservaRequestDto);
-    ReservaResponseDto editReserva(ReservaRequestConIdDto reservaRequestWithIdDto);
+    ReservaResponseDto editarReserva(ReservaRequestConIdDto reservaRequestWithIdDto);
     MensajeResponseDto borrarReserva(long id);
 
 }

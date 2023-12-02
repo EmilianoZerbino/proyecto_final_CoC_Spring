@@ -20,6 +20,6 @@ public class Aerolinea {
 
     private String nombre;
 
-    @OneToMany(mappedBy = "aerolinea", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "aerolinea", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vuelo> vuelos;
 }

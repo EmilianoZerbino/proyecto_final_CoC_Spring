@@ -24,7 +24,7 @@ public class Cliente {
     private String telefono;
     private String email;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reserva> reservas;
 
 }

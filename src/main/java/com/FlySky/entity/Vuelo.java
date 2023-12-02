@@ -34,7 +34,7 @@ public class Vuelo {
     @JoinColumn(name = "aerolinea_id", nullable = false)
     private Aerolinea aerolinea;
 
-    @OneToMany(mappedBy = "vuelo", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "vuelo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Asiento> asientos;
 
 }

@@ -16,6 +16,6 @@ public class AerolineaRequestConIdDto {
 
     private String nombre;
 
-    private List<VueloRequestDto> vuelos;
+    private List<VueloRequestConIdDto> vuelos;
 
 }

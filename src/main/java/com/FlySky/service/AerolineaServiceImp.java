@@ -8,6 +8,7 @@ import com.FlySky.entity.Aerolinea;
 import com.FlySky.entity.Asiento;
 import com.FlySky.entity.Vuelo;
 import com.FlySky.repository.IAerolineaRepository;
+import com.FlySky.repository.IVueloRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -56,8 +57,15 @@ public class AerolineaServiceImp implements IAerolineaService{
 
     @Override
     public AerolineaResponseDto editarAerolinea(AerolineaRequestConIdDto aerolineaRequestConIdDto) {
-        Aerolinea aerolinea = mapper.map(aerolineaRequestConIdDto,Aerolinea.class);
-        Aerolinea persistAerolinea = repository.save(aerolinea);
+        //Optional<Aerolinea> aerolineaActual = repository.findById(aerolineaRequestConIdDto.getIdAerolinea());
+        Aerolinea nuevaAerolinea = mapper.map(aerolineaRequestConIdDto,Aerolinea.class);
+        for (Vuelo vuelo:nuevaAerolinea.getVuelos() ) {
+            vuelo.setAerolinea(nuevaAerolinea);
+            for (Asiento asiento : vuelo.getAsientos()) {
+                asiento.setVuelo(vuelo);
+            }
+        }
+        Aerolinea persistAerolinea = repository.save(nuevaAerolinea);
         return mapper.map(persistAerolinea, AerolineaResponseDto.class);
     }
 

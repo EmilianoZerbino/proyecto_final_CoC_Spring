@@ -26,7 +26,7 @@ public class VueloRequestConIdDto {
 
     private Integer conexion;
 
-    private AerolineaRequestDto aerolinea;
+    private AerolineaRequestConIdDto aerolinea;
 
     private List<AsientoRequestDto> asientos;
 }

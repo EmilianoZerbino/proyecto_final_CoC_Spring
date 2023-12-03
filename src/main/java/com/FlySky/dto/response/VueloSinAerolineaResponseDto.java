@@ -1,11 +1,6 @@
-package com.FlySky.dto.request;
+package com.FlySky.dto.response;
 
-import com.FlySky.entity.Aerolinea;
-import com.FlySky.entity.Asiento;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class VueloRequestDto {
+public class VueloSinAerolineaResponseDto {
+
+    private Long idVuelo;
 
     private Long numeroVuelo;
 
@@ -28,7 +25,5 @@ public class VueloRequestDto {
 
     private Integer conexion;
 
-    private AerolineaRequestConIdDto aerolinea;
-
-    private List<AsientoRequestDto> asientos;
+    private List<AsientoResponseDto> asientos;
 }

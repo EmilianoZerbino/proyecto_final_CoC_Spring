@@ -9,12 +9,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AerolineaResponseDto {
+public class AerolineaSinVuelosResponseDto {
 
     private Long idAerolinea;
 
     private String nombre;
-
-    private List<VueloSinAerolineaResponseDto> vuelos;
 
 }

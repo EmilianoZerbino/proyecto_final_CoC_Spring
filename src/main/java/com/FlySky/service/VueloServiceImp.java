@@ -3,7 +3,10 @@ package com.FlySky.service;
 import com.FlySky.dto.request.VueloRequestConIdDto;
 import com.FlySky.dto.request.VueloRequestDto;
 import com.FlySky.dto.response.VueloResponseDto;
+import com.FlySky.dto.response.VueloSinAerolineaResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
+import com.FlySky.entity.Aerolinea;
+import com.FlySky.entity.Asiento;
 import com.FlySky.entity.Vuelo;
 import com.FlySky.repository.IVueloRepository;
 import org.modelmapper.ModelMapper;
@@ -48,6 +51,9 @@ public class VueloServiceImp implements IVueloService{
     @Override
     public VueloResponseDto editarVuelo(VueloRequestConIdDto vueloRequestConIdDto) {
         Vuelo vuelo = mapper.map(vueloRequestConIdDto,Vuelo.class);
+        for (Asiento asiento : vuelo.getAsientos()) {
+            asiento.setVuelo(vuelo);
+        }
         Vuelo persistVuelo = repository.save(vuelo);
         return mapper.map(persistVuelo, VueloResponseDto.class);
     }

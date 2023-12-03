@@ -22,4 +22,5 @@ public class Aerolinea {
 
     @OneToMany(mappedBy = "aerolinea", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vuelo> vuelos;
+
 }

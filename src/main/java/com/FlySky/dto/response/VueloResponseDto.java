@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class VueloResponseDto {
+
     private Long idVuelo;
 
     private Long numeroVuelo;
@@ -23,6 +24,8 @@ public class VueloResponseDto {
     private LocalDateTime horarioLlegada;
 
     private Integer conexion;
+
+    private AerolineaSinVuelosResponseDto aerolinea;
 
     private List<AsientoResponseDto> asientos;
 }

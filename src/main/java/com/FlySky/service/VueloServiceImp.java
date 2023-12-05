@@ -44,6 +44,10 @@ public class VueloServiceImp implements IVueloService{
     @Override
     public VueloResponseDto agregarVuelo(VueloRequestDto vueloRequestDto) {
         Vuelo vuelo = mapper.map(vueloRequestDto,Vuelo.class);
+        vuelo.setAerolinea(vuelo.getAerolinea());
+        for (Asiento asiento : vuelo.getAsientos()) {
+            asiento.setVuelo(vuelo);
+        }
         Vuelo persistVuelo = repository.save(vuelo);
         return mapper.map(persistVuelo, VueloResponseDto.class);
     }

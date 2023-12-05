@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class VueloResponseDto {
+public class VueloSinAsientoResponseDto {
 
     private Long idVuelo;
 
@@ -26,6 +26,4 @@ public class VueloResponseDto {
     private Integer conexion;
 
     private AerolineaSinVuelosResponseDto aerolinea;
-
-    private List<AsientoSinVueloResponseDto> asientos;
 }

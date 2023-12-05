@@ -19,7 +19,7 @@ public class AsientoRequestConIdDto {
     private Double precio;
     private Boolean estaDisponible;
 
-    private VueloRequestDto vuelo;
+    private VueloRequestConIdDto vuelo;
 
     private ReservaRequestDto reserva;
 }

@@ -23,13 +23,15 @@ public class Reserva {
 
     private String formaPago;
 
-    private String estado; // Espera - Cumplida - Incumplida - Cancelada
+    private String estado; // Espera - Cumplida - Perdido - Cancelada
 
-    @OneToOne(mappedBy = "reserva")
+    //@OneToOne(mappedBy = "reserva")
+    @OneToOne
+    @JoinColumn(name = "asiento_id", referencedColumnName = "idAsiento")
     private Asiento asiento;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "cliente_id", referencedColumnName = "idCliente", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", referencedColumnName = "idCliente")
     private Cliente cliente;
 
 }

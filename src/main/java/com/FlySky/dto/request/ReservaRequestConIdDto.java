@@ -19,8 +19,10 @@ public class ReservaRequestConIdDto {
 
     private String formaPago;
 
-    private AsientoRequestDto asiento;
+    private String estado;
 
-    private ClienteRequestDto cliente;
+    private AsientoRequestConIdDto asiento;
+
+    private ClienteRequestConIdDto cliente;
 
 }

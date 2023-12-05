@@ -41,6 +41,9 @@ public class ReservaServiceImp implements IReservaService{
     @Override
     public ReservaResponseDto agregarReserva(ReservaRequestDto reservaRequestDto) {
         Reserva reserva = mapper.map(reservaRequestDto,Reserva.class);
+        reserva.setAsiento(reserva.getAsiento());
+        reserva.setCliente(reserva.getCliente());
+        reserva.setEstado("Espera");
         Reserva persistReserva = repository.save(reserva);
         return mapper.map(persistReserva, ReservaResponseDto.class);
     }

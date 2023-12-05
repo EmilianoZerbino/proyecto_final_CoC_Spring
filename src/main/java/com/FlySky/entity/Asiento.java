@@ -25,8 +25,9 @@ public class Asiento {
     @JoinColumn(name = "vuelo_id", nullable = false)
     private Vuelo vuelo;
 
-    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinColumn(name = "reserva_id", referencedColumnName = "idReserva")
+    //@OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    //@JoinColumn(name = "reserva_id", referencedColumnName = "idReserva")
+    @OneToOne(mappedBy = "asiento")
     private Reserva reserva;
 
 }

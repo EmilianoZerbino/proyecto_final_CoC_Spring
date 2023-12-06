@@ -20,4 +20,6 @@ public class AsientoResponseDto {
     private Boolean estaDisponible;
 
     private VueloSinAsientoResponseDto vuelo;
+
+    private ReservaSinAsientoResponseDto reservaSinAsientoResponseDto;
 }

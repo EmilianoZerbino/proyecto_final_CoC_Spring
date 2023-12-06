@@ -25,7 +25,7 @@ public class VueloResponseDto {
 
     private Integer conexion;
 
-    private AerolineaSinVuelosResponseDto aerolinea;
+    private AerolineaSinVueloResponseDto aerolinea;
 
     private List<AsientoSinVueloResponseDto> asientos;
 }

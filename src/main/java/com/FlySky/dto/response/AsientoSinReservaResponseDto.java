@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AsientoSinVueloResponseDto {
+public class AsientoSinReservaResponseDto {
 
     private Long idAsiento;
 
@@ -19,6 +19,6 @@ public class AsientoSinVueloResponseDto {
     private Double precio;
     private Boolean estaDisponible;
 
-    private ReservaSinAsientoResponseDto reserva;
-}
+    private VueloSinAsientoResponseDto vuelo;
 
+}

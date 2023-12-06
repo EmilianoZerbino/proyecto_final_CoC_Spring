@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ReservaResponseDto {
+public class ReservaSinAsientoResponseDto {
 
     private Long idReserva;
 
@@ -20,8 +20,6 @@ public class ReservaResponseDto {
     private String formaPago;
 
     private String estado; // Espera - Cumplida - Incumplida - Cancelada
-
-    private AsientoSinReservaResponseDto asiento;
 
     private ClienteSinReservaResponseDto cliente;
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ClienteResponseDto {
+public class ClienteSinReservaResponseDto {
 
     private Long idCliente;
 
@@ -21,5 +21,4 @@ public class ClienteResponseDto {
     private String telefono;
     private String email;
 
-    private List<ReservaSinClienteResponseDto> reservas;
 }

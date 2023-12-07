@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -60,6 +61,22 @@ public class AerolineaServiceImp implements IAerolineaService{
             vuelo.setAerolinea(aerolinea);
             for (Asiento asiento : vuelo.getAsientos()) {
                 asiento.setVuelo(vuelo);
+            }
+        }
+        for (int i=0;i<aerolinea.getVuelos().size()-1;i++) {
+            for (int j=i+1;j<aerolinea.getVuelos().size();j++) {
+                if(aerolinea.getVuelos().get(i).getNumeroVuelo().equals(aerolinea.getVuelos().get(j).getNumeroVuelo())){
+                   throw new EntityAlreadyExistException("Ingreso dos Vuelos con el mismo Numero de Identificación en la misma Aerolinea. Operación Cancelada"); //Ataja errores de DNI duplicados.
+                }
+            }
+        }
+        for (int i=0;i<aerolinea.getVuelos().size();i++) {
+            for (int j=0;j<aerolinea.getVuelos().get(i).getAsientos().size()-1;j++) {
+                for (int k=j+1;k<aerolinea.getVuelos().get(i).getAsientos().size();k++) {
+                    if(aerolinea.getVuelos().get(i).getAsientos().get(j).getNumeroAsiento().equals(aerolinea.getVuelos().get(i).getAsientos().get(k).getNumeroAsiento())){
+                        throw new EntityAlreadyExistException("Ingreso dos Asientos con el mismo Numero de Identificación en el mismo Vuelo. Operación Cancelada"); //Ataja errores de DNI duplicados.
+                    }
+                }
             }
         }
         Aerolinea persistAerolinea = repository.save(aerolinea);

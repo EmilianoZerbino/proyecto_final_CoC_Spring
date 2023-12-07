@@ -45,7 +45,7 @@ public class VueloServiceImp implements IVueloService{
     public VueloResponseDto obtenerVueloById(long id) {
         Optional <Vuelo> vuelo = repository.findById(id);
         if(vuelo.isEmpty()){
-            throw new EntityNotFoundException("No hay Vuelo registrada con ese ID."); // Ataja ID no encontrados.
+            throw new EntityNotFoundException("No hay Vuelo registrado con ese ID."); // Ataja ID no encontrados.
         }
         return mapper.map(vuelo, VueloResponseDto.class);
     }
@@ -60,6 +60,13 @@ public class VueloServiceImp implements IVueloService{
         for (Asiento asiento : vuelo.getAsientos()) {
             asiento.setVuelo(vuelo);
         }
+        for (int j=0;j<vuelo.getAsientos().size()-1;j++) {
+            for (int k=j+1;k<vuelo.getAsientos().size();k++) {
+                if(vuelo.getAsientos().get(j).getNumeroAsiento().equals(vuelo.getAsientos().get(k).getNumeroAsiento())){
+                    throw new EntityAlreadyExistException("Ingreso dos Asientos con el mismo Numero de Identificación. Operación Cancelada"); //Ataja errores de DNI duplicados.
+                }
+            }
+        }
         Vuelo persistVuelo = repository.save(vuelo);
         if(vuelo==null){
             throw new InsertionDBException("Error al guardar la Vuelo en la Base de Datos"); // Ataja errores de guardado en la DB.
@@ -69,6 +76,7 @@ public class VueloServiceImp implements IVueloService{
 
     @Override
     public VueloResponseDto editarVuelo(VueloRequestConIdDto vueloRequestConIdDto) {
+        obtenerVueloById(vueloRequestConIdDto.getIdVuelo()); // Verifica Excepcion NOTFOUND
         Vuelo vuelo = mapper.map(vueloRequestConIdDto,Vuelo.class);
         for (Asiento asiento : vuelo.getAsientos()) {
             asiento.setVuelo(vuelo);
@@ -79,6 +87,7 @@ public class VueloServiceImp implements IVueloService{
 
     @Override
     public MensajeResponseDto borrarVuelo(long id) {
+        obtenerVueloById(id); // Verifica Excepcion NOTFOUND
         repository.deleteById(id);
         return new MensajeResponseDto("borrado exitoso");
     }

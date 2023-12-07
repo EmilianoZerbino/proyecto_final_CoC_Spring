@@ -19,5 +19,4 @@ public class AsientoRequestDto {
 
     private VueloRequestDto vuelo;
 
-    //private Reserva reserva;
 }

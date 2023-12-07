@@ -21,5 +21,4 @@ public class AsientoRequestConIdDto {
 
     private VueloRequestConIdDto vuelo;
 
-    private ReservaRequestDto reserva;
 }

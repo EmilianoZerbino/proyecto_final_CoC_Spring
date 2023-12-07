@@ -21,5 +21,5 @@ public class AsientoResponseDto {
 
     private VueloSinAsientoResponseDto vuelo;
 
-    private ReservaSinAsientoResponseDto reservaSinAsientoResponseDto;
+    private ReservaSinAsientoResponseDto reserva;
 }

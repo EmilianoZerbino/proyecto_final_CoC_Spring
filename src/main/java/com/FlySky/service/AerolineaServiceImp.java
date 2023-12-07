@@ -66,7 +66,7 @@ public class AerolineaServiceImp implements IAerolineaService{
         for (int i=0;i<aerolinea.getVuelos().size()-1;i++) {
             for (int j=i+1;j<aerolinea.getVuelos().size();j++) {
                 if(aerolinea.getVuelos().get(i).getNumeroVuelo().equals(aerolinea.getVuelos().get(j).getNumeroVuelo())){
-                   throw new EntityAlreadyExistException("Ingreso dos Vuelos con el mismo Numero de Identificación en la misma Aerolinea. Operación Cancelada"); //Ataja errores de DNI duplicados.
+                   throw new EntityAlreadyExistException("Ingreso dos Vuelos con el mismo Numero de Identificación. Operación Cancelada"); //Ataja errores de DNI duplicados.
                 }
             }
         }
@@ -88,7 +88,7 @@ public class AerolineaServiceImp implements IAerolineaService{
 
     @Override
     public AerolineaResponseDto editarAerolinea(AerolineaRequestConIdDto aerolineaRequestConIdDto) {
-        //Optional<Aerolinea> aerolineaActual = repository.findById(aerolineaRequestConIdDto.getIdAerolinea());
+        obtenerAerolineaById(aerolineaRequestConIdDto.getIdAerolinea()); // Verifica Excepcion NOTFOUND
         Aerolinea nuevaAerolinea = mapper.map(aerolineaRequestConIdDto,Aerolinea.class);
         for (Vuelo vuelo:nuevaAerolinea.getVuelos() ) {
             vuelo.setAerolinea(nuevaAerolinea);
@@ -102,6 +102,7 @@ public class AerolineaServiceImp implements IAerolineaService{
 
     @Override
     public MensajeResponseDto borrarAerolinea(long id) {
+        obtenerAerolineaById(id); // Verifica Excepcion NOTFOUND
         repository.deleteById(id);
         return new MensajeResponseDto("borrado exitoso");
     }

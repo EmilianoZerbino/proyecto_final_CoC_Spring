@@ -41,7 +41,7 @@ public class ClienteServiceImp implements IClienteService{
     public ClienteResponseDto obtenerClienteById(long id) {
         Optional <Cliente> cliente = repository.findById(id);
         if(cliente.isEmpty()){
-            throw new EntityNotFoundException("No hay Cliente registrada con ese ID."); // Ataja ID no encontrados.
+            throw new EntityNotFoundException("No hay Cliente registrado con ese ID."); // Ataja ID no encontrados.
         }
         return mapper.map(cliente, ClienteResponseDto.class);
     }
@@ -58,6 +58,7 @@ public class ClienteServiceImp implements IClienteService{
 
     @Override
     public ClienteResponseDto editarCliente(ClienteRequestConIdDto clienteRequestConIdDto) {
+        obtenerClienteById(clienteRequestConIdDto.getIdCliente()); // Verifica Excepcion NOTFOUND
         Cliente cliente = mapper.map(clienteRequestConIdDto,Cliente.class);
         Cliente persistCliente = repository.save(cliente);
         return mapper.map(persistCliente, ClienteResponseDto.class);
@@ -65,6 +66,7 @@ public class ClienteServiceImp implements IClienteService{
 
     @Override
     public MensajeResponseDto borrarCliente(long id) {
+        obtenerClienteById(id); // Verifica Excepcion NOTFOUND
         repository.deleteById(id);
         return new MensajeResponseDto("borrado exitoso");
     }

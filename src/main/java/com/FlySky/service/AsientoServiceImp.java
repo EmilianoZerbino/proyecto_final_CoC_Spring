@@ -41,7 +41,7 @@ public class AsientoServiceImp implements IAsientoService{
     public AsientoResponseDto obtenerAsientoById(long id) {
         Optional <Asiento> asiento = repository.findById(id);
         if(asiento.isEmpty()){
-            throw new EntityNotFoundException("No hay Asiento registrada con ese ID."); // Ataja ID no encontrados.
+            throw new EntityNotFoundException("No hay Asiento registrado con ese ID."); // Ataja ID no encontrados.
         }
         return mapper.map(asiento, AsientoResponseDto.class);
     }
@@ -58,6 +58,7 @@ public class AsientoServiceImp implements IAsientoService{
 
     @Override
     public AsientoResponseDto editarAsiento(AsientoRequestConIdDto asientoRequestConIdDto) {
+        obtenerAsientoById(asientoRequestConIdDto.getIdAsiento()); // Verifica Excepcion NOTFOUND
         Asiento asiento = mapper.map(asientoRequestConIdDto,Asiento.class);
         Asiento persistAsiento = repository.save(asiento);
         return mapper.map(persistAsiento, AsientoResponseDto.class);
@@ -65,6 +66,7 @@ public class AsientoServiceImp implements IAsientoService{
 
     @Override
     public MensajeResponseDto borrarAsiento(long id) {
+        obtenerAsientoById(id); // Verifica Excepcion NOTFOUND
         repository.deleteById(id);
         return new MensajeResponseDto("borrado exitoso");
     }

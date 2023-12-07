@@ -25,13 +25,12 @@ public class Reserva {
 
     private String estado; // Espera - Cumplida - Perdido - Cancelada
 
-    //@OneToOne(mappedBy = "reserva")
     @OneToOne
-    @JoinColumn(name = "asiento_id", referencedColumnName = "idAsiento")
+    @JoinColumn(name = "asiento_id",nullable = false)
     private Asiento asiento;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", referencedColumnName = "idCliente")
+    @JoinColumn(name = "cliente_id", referencedColumnName = "idCliente",nullable = false)
     private Cliente cliente;
 
 }

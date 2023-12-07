@@ -5,6 +5,8 @@ import com.FlySky.dto.request.ClienteRequestDto;
 import com.FlySky.dto.response.ClienteResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.entity.Cliente;
+import com.FlySky.exception.EntityNotFoundException;
+import com.FlySky.exception.InsertionDBException;
 import com.FlySky.repository.IClienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class ClienteServiceImp implements IClienteService{
     @Override
     public List<ClienteResponseDto> obtenerClientes() {
         List<Cliente> responseEntity = repository.findAll();
+        if(responseEntity.isEmpty()){
+            throw new EntityNotFoundException("No hay Clientes Registrados");
+        }
         List<ClienteResponseDto> response = new ArrayList<>();
         responseEntity.stream().forEach(r->response.add(mapper.map(r, ClienteResponseDto.class)));
         return response;
@@ -35,6 +40,9 @@ public class ClienteServiceImp implements IClienteService{
     @Override
     public ClienteResponseDto obtenerClienteById(long id) {
         Optional <Cliente> cliente = repository.findById(id);
+        if(cliente.isEmpty()){
+            throw new EntityNotFoundException("No hay Cliente registrada con ese ID."); // Ataja ID no encontrados.
+        }
         return mapper.map(cliente, ClienteResponseDto.class);
     }
 
@@ -42,6 +50,9 @@ public class ClienteServiceImp implements IClienteService{
     public ClienteResponseDto agregarCliente(ClienteRequestDto clienteRequestDto) {
         Cliente cliente = mapper.map(clienteRequestDto,Cliente.class);
         Cliente persistCliente = repository.save(cliente);
+        if(cliente==null){
+            throw new InsertionDBException("Error al guardar la Cliente en la Base de Datos"); // Ataja errores de guardado en la DB.
+        }
         return mapper.map(persistCliente, ClienteResponseDto.class);
     }
 

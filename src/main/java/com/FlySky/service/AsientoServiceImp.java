@@ -5,6 +5,8 @@ import com.FlySky.dto.request.AsientoRequestDto;
 import com.FlySky.dto.response.AsientoResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.entity.Asiento;
+import com.FlySky.exception.EntityNotFoundException;
+import com.FlySky.exception.InsertionDBException;
 import com.FlySky.repository.IAsientoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class AsientoServiceImp implements IAsientoService{
     @Override
     public List<AsientoResponseDto> obtenerAsientos() {
         List<Asiento> responseEntity = repository.findAll();
+        if(responseEntity.isEmpty()){
+            throw new EntityNotFoundException("No hay Asientos registrados");
+        }
         List<AsientoResponseDto> response = new ArrayList<>();
         responseEntity.stream().forEach(r->response.add(mapper.map(r, AsientoResponseDto.class)));
         return response;
@@ -35,6 +40,9 @@ public class AsientoServiceImp implements IAsientoService{
     @Override
     public AsientoResponseDto obtenerAsientoById(long id) {
         Optional <Asiento> asiento = repository.findById(id);
+        if(asiento.isEmpty()){
+            throw new EntityNotFoundException("No hay Asiento registrada con ese ID."); // Ataja ID no encontrados.
+        }
         return mapper.map(asiento, AsientoResponseDto.class);
     }
 
@@ -42,6 +50,9 @@ public class AsientoServiceImp implements IAsientoService{
     public AsientoResponseDto agregarAsiento(AsientoRequestDto asientoRequestDto) {
         Asiento asiento = mapper.map(asientoRequestDto,Asiento.class);
         Asiento persistAsiento = repository.save(asiento);
+        if(asiento==null){
+            throw new InsertionDBException("Error al guardar la Asiento en la Base de Datos"); // Ataja errores de guardado en la DB.
+        }
         return mapper.map(persistAsiento, AsientoResponseDto.class);
     }
 

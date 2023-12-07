@@ -8,6 +8,9 @@ import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.entity.Aerolinea;
 import com.FlySky.entity.Asiento;
 import com.FlySky.entity.Vuelo;
+import com.FlySky.exception.EntityAlreadyExistException;
+import com.FlySky.exception.EntityNotFoundException;
+import com.FlySky.exception.InsertionDBException;
 import com.FlySky.repository.IVueloRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -30,6 +33,9 @@ public class VueloServiceImp implements IVueloService{
     @Override
     public List<VueloResponseDto> obtenerVuelos() {
         List<Vuelo> responseEntity = repository.findAll();
+        if(responseEntity.isEmpty()){
+            throw new EntityNotFoundException("No hay Vuelos registrados");
+        }
         List<VueloResponseDto> response = new ArrayList<>();
         responseEntity.stream().forEach(r->response.add(mapper.map(r, VueloResponseDto.class)));
         return response;
@@ -38,6 +44,9 @@ public class VueloServiceImp implements IVueloService{
     @Override
     public VueloResponseDto obtenerVueloById(long id) {
         Optional <Vuelo> vuelo = repository.findById(id);
+        if(vuelo.isEmpty()){
+            throw new EntityNotFoundException("No hay Vuelo registrada con ese ID."); // Ataja ID no encontrados.
+        }
         return mapper.map(vuelo, VueloResponseDto.class);
     }
 
@@ -45,10 +54,16 @@ public class VueloServiceImp implements IVueloService{
     public VueloResponseDto agregarVuelo(VueloRequestDto vueloRequestDto) {
         Vuelo vuelo = mapper.map(vueloRequestDto,Vuelo.class);
         vuelo.setAerolinea(vuelo.getAerolinea());
+        if(repository.findByNumeroVueloAndAerolinea(vuelo.getNumeroVuelo(),vuelo.getAerolinea())!=null){
+            throw new EntityAlreadyExistException("Ya hay un Vuelo con ese Numero de Identificación registrado en la Aerolinea"); //Ataja errores de DNI duplicados.
+        }
         for (Asiento asiento : vuelo.getAsientos()) {
             asiento.setVuelo(vuelo);
         }
         Vuelo persistVuelo = repository.save(vuelo);
+        if(vuelo==null){
+            throw new InsertionDBException("Error al guardar la Vuelo en la Base de Datos"); // Ataja errores de guardado en la DB.
+        }
         return mapper.map(persistVuelo, VueloResponseDto.class);
     }
 

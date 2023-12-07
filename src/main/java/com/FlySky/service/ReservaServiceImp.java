@@ -5,6 +5,8 @@ import com.FlySky.dto.request.ReservaRequestDto;
 import com.FlySky.dto.response.ReservaResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.entity.Reserva;
+import com.FlySky.exception.EntityNotFoundException;
+import com.FlySky.exception.InsertionDBException;
 import com.FlySky.repository.IReservaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class ReservaServiceImp implements IReservaService{
     @Override
     public List<ReservaResponseDto> obtenerReservas() {
         List<Reserva> responseEntity = repository.findAll();
+        if(responseEntity.isEmpty()){
+            throw new EntityNotFoundException("No hay Reservas registradas");
+        }
         List<ReservaResponseDto> response = new ArrayList<>();
         responseEntity.stream().forEach(r->response.add(mapper.map(r, ReservaResponseDto.class)));
         return response;
@@ -35,6 +40,9 @@ public class ReservaServiceImp implements IReservaService{
     @Override
     public ReservaResponseDto obtenerReservaById(long id) {
         Optional <Reserva> reserva = repository.findById(id);
+        if(reserva.isEmpty()){
+            throw new EntityNotFoundException("No hay Reserva registrada con ese ID."); // Ataja ID no encontrados.
+        }
         return mapper.map(reserva, ReservaResponseDto.class);
     }
 
@@ -45,6 +53,9 @@ public class ReservaServiceImp implements IReservaService{
         reserva.setCliente(reserva.getCliente());
         reserva.setEstado("Espera");
         Reserva persistReserva = repository.save(reserva);
+        if(reserva==null){
+            throw new InsertionDBException("Error al guardar la Reserva en la Base de Datos"); // Ataja errores de guardado en la DB.
+        }
         return mapper.map(persistReserva, ReservaResponseDto.class);
     }
 

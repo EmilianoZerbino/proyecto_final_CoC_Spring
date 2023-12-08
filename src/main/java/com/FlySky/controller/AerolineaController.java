@@ -32,6 +32,11 @@ public class AerolineaController {
         return new ResponseEntity<>(service.obtenerAerolineas(), HttpStatus.OK);
     }
 
+    @GetMapping("/disponibles")
+    public ResponseEntity<List<AerolineaResponseDto>> obtenerAerolineasConAsientosDisponibles(){
+        return new ResponseEntity<>(service.obtenerAerolineasConAsientosDisponibles(), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<AerolineaResponseDto> obtenerAerolineaById(@PathVariable long id){
         return new ResponseEntity<>(service.obtenerAerolineaById(id), HttpStatus.OK);

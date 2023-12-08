@@ -38,6 +38,17 @@ public class AsientoServiceImp implements IAsientoService{
     }
 
     @Override
+    public List<AsientoResponseDto> obtenerAsientosDisponibles() {
+        List<Asiento> responseEntity = repository.findByEstaDisponible(true);
+        if(responseEntity.isEmpty()){
+            throw new EntityNotFoundException("No hay Asientos registrados");
+        }
+        List<AsientoResponseDto> response = new ArrayList<>();
+        responseEntity.stream().forEach(r->response.add(mapper.map(r, AsientoResponseDto.class)));
+        return response;
+    }
+
+    @Override
     public AsientoResponseDto obtenerAsientoById(long id) {
         Optional <Asiento> asiento = repository.findById(id);
         if(asiento.isEmpty()){

@@ -33,6 +33,11 @@ public class VueloController {
         return new ResponseEntity<>(service.obtenerVuelos(), HttpStatus.OK);
     }
 
+    @GetMapping("/disponibles")
+    public ResponseEntity<List<VueloResponseDto>> obtenerVuelosConAsientosDisponibles(){
+        return new ResponseEntity<>(service.obtenerVuelosConAsientosDisponibles(), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<VueloResponseDto> obtenerVueloById(@PathVariable long id){
         return new ResponseEntity<>(service.obtenerVueloById(id), HttpStatus.OK);

@@ -43,6 +43,38 @@ public class AerolineaServiceImp implements IAerolineaService{
     }
 
     @Override
+    public List<AerolineaResponseDto> obtenerAerolineasConAsientosDisponibles() {
+        List<Aerolinea> responseEntity = repository.findAll();
+        if(responseEntity.isEmpty()){
+            throw new EntityNotFoundException("No hay Aerolineas registradas");
+        }
+        List<AerolineaResponseDto> response = new ArrayList<>();
+        responseEntity.stream().forEach(r->response.add(mapper.map(r, AerolineaResponseDto.class)));
+        for(int i=0;i<response.size();i++){
+            for(int j=0;j<response.get(i).getVuelos().size();j++){
+                for (int k=0;k<response.get(i).getVuelos().get(j).getAsientos().size();k++) {
+                    if (!response.get(i).getVuelos().get(j).getAsientos().get(k).getEstaDisponible()){
+                        response.get(i).getVuelos().get(j).getAsientos().remove(response.get(i).getVuelos().get(j).getAsientos().get(k));
+                        k--;
+                    }
+                }
+                if(response.get(i).getVuelos().get(j).getAsientos().isEmpty()){
+                    response.get(i).getVuelos().remove(response.get(i).getVuelos().get(j));
+                    j--;
+                }
+            }
+            if(response.get(i).getVuelos().isEmpty()){
+                response.remove(response.get(i));
+                i--;
+            }
+        }
+        if(response.isEmpty()){
+                throw new EntityNotFoundException("No hay Aerolineas con vuelos disponibles");
+        }
+        return response;
+    }
+
+    @Override
     public AerolineaResponseDto obtenerAerolineaById(long id) {
         Optional <Aerolinea> aerolinea = repository.findById(id);
         if(aerolinea.isEmpty()){

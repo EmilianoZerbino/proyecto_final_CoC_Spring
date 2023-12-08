@@ -11,6 +11,7 @@ import java.util.List;
 public interface IVueloService {
 
     List<VueloResponseDto> obtenerVuelos();
+    List<VueloResponseDto> obtenerVuelosConAsientosDisponibles();
     VueloResponseDto obtenerVueloById(long id);
     VueloResponseDto agregarVuelo(VueloRequestDto vueloRequestDto);
     VueloResponseDto editarVuelo(VueloRequestConIdDto vueloRequestWithIdDto);

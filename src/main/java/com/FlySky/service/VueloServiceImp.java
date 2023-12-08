@@ -42,6 +42,32 @@ public class VueloServiceImp implements IVueloService{
     }
 
     @Override
+    public List<VueloResponseDto> obtenerVuelosConAsientosDisponibles() {
+        List<Vuelo> responseEntity = repository.findAll();
+        if(responseEntity.isEmpty()){
+            throw new EntityNotFoundException("No hay Vuelos registrados");
+        }
+        List<VueloResponseDto> response = new ArrayList<>();
+        responseEntity.stream().forEach(r->response.add(mapper.map(r, VueloResponseDto.class)));
+        for(int i=0;i<response.size();i++){
+            for(int j=0;j<response.get(i).getAsientos().size();j++){
+                    if (!response.get(i).getAsientos().get(j).getEstaDisponible()){
+                        response.get(i).getAsientos().remove(response.get(i).getAsientos().get(j));
+                        j--;
+                    }
+            }
+            if(response.get(i).getAsientos().isEmpty()){
+                response.remove(response.get(i));
+                i--;
+            }
+        }
+        if(response.isEmpty()){
+            throw new EntityNotFoundException("No hay vuelos con asientos disponibles");
+        }
+        return response;
+    }
+
+    @Override
     public VueloResponseDto obtenerVueloById(long id) {
         Optional <Vuelo> vuelo = repository.findById(id);
         if(vuelo.isEmpty()){

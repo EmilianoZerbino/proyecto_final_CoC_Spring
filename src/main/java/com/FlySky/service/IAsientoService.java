@@ -10,6 +10,7 @@ import java.util.List;
 public interface IAsientoService {
 
     List<AsientoResponseDto> obtenerAsientos();
+    List<AsientoResponseDto> obtenerAsientosDisponibles();
     AsientoResponseDto obtenerAsientoById(long id);
     AsientoResponseDto agregarAsiento(AsientoRequestDto asientoRequestDto);
     AsientoResponseDto editarAsiento(AsientoRequestConIdDto asientoRequestWithIdDto);

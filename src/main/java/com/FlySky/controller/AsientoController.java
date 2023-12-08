@@ -32,6 +32,11 @@ public class AsientoController {
         return new ResponseEntity<>(service.obtenerAsientos(), HttpStatus.OK);
     }
 
+    @GetMapping("/disponibles")
+    public ResponseEntity<List<AsientoResponseDto>> obtenerAsientosDisponibles(){
+        return new ResponseEntity<>(service.obtenerAsientosDisponibles(), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<AsientoResponseDto> obtenerAsientoById(@PathVariable long id){
         return new ResponseEntity<>(service.obtenerAsientoById(id), HttpStatus.OK);

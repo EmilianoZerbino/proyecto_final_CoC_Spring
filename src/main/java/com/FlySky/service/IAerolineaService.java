@@ -10,6 +10,7 @@ import java.util.List;
 public interface IAerolineaService {
 
     List<AerolineaResponseDto> obtenerAerolineas();
+    List<AerolineaResponseDto> obtenerAerolineasConAsientosDisponibles();
     AerolineaResponseDto obtenerAerolineaById(long id);
     AerolineaResponseDto agregarAerolinea(AerolineaRequestDto aerolineaRequestDto);
     AerolineaResponseDto editarAerolinea(AerolineaRequestConIdDto aerolineaRequestWithIdDto);

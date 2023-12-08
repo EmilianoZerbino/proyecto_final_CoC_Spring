@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -17,6 +18,7 @@ public class ClienteSinReservaResponseDto {
     private String nombre;
     private String apellido;
     private String dni;
+    private LocalDate fechNac;
     private String direccion;
     private String telefono;
     private String email;

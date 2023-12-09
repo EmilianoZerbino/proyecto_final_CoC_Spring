@@ -32,8 +32,10 @@ public class ReservaRequestConIdDto {
     @Size(min=3, max=24, message = "El estado debe contener entre 3 y 24 caracteres.")
     private String estado;
 
-    private AsientoRequestConIdDto asiento;
+    @NotNull(message = "El campo Asiento { Id } no puede ser nulo")
+    private IdDto asiento;
 
-    private ClienteRequestConIdDto cliente;
+    @NotNull(message = "El campo Cliente { Id } no puede ser nulo")
+    private IdDto cliente;
 
 }

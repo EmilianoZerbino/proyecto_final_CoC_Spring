@@ -70,15 +70,15 @@ public class ClienteServiceImp implements IClienteService{
     public ClienteResponseDto editarCliente(ClienteRequestConIdDto clienteRequestConIdDto) {
         Cliente cliente = repository.findByDni(clienteRequestConIdDto.getDni());
         if(cliente!=null && cliente.getId()!=clienteRequestConIdDto.getId()){
-            throw new EntityAlreadyExistException("Ya hay un Cliente registrado con ese DNI"); //Ataja errores de DNI duplicados.
+            throw new EntityAlreadyExistException("Ya hay otro Cliente registrado con ese DNI"); //Ataja errores de DNI duplicados.
         }
         cliente = repository.findByEmail(clienteRequestConIdDto.getEmail());
         if(cliente!=null && cliente.getId()!=clienteRequestConIdDto.getId()){
-            throw new EntityAlreadyExistException("Ya hay un Cliente registrado con ese email"); //Ataja errores de email duplicados.
+            throw new EntityAlreadyExistException("Ya hay otro Cliente registrado con ese email"); //Ataja errores de email duplicados.
         }
         cliente = repository.findByNombreAndApellido(clienteRequestConIdDto.getNombre(),clienteRequestConIdDto.getApellido());
         if(cliente!=null && cliente.getId()!=clienteRequestConIdDto.getId()){
-            throw new EntityAlreadyExistException("Ya hay un Cliente registrado con ese Nombre y Apellido"); //Ataja errores de Nombre y Apellido duplicados.
+            throw new EntityAlreadyExistException("Ya hay otro Cliente registrado con ese Nombre y Apellido"); //Ataja errores de Nombre y Apellido duplicados.
         }
         obtenerClienteById(clienteRequestConIdDto.getId()); // Verifica Excepcion NOTFOUND
         cliente = mapper.map(clienteRequestConIdDto,Cliente.class);

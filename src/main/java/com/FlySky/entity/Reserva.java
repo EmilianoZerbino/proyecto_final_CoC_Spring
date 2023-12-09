@@ -23,10 +23,10 @@ public class Reserva {
 
     private String formaPago;
 
-    private String estado; // Espera - Cumplida - Perdido - Cancelada
+    private String estado; // Espera - Abordado - Perdido - Cancelado
 
     @OneToOne
-    @JoinColumn(name = "asiento_id",nullable = false)
+    @JoinColumn(name = "asiento_id")
     private Asiento asiento;
 
     @ManyToOne

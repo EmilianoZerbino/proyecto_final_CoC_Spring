@@ -5,6 +5,7 @@ import com.FlySky.entity.Cliente;
 import com.FlySky.entity.Reserva;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IReservaRepository  extends JpaRepository<Reserva,Long> {
@@ -14,4 +15,6 @@ public interface IReservaRepository  extends JpaRepository<Reserva,Long> {
     List<Reserva> findByAsiento_Vuelo_Id(long vueloId);
 
     List<Reserva> findByCliente_Id(long clienteId);
+
+    List<Reserva> findByFechaVenta(LocalDate date);
 }

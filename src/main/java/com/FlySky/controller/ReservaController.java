@@ -4,15 +4,17 @@ import com.FlySky.dto.request.AbordarVueloRequestDto;
 import com.FlySky.dto.request.ReservaRequestConIdDto;
 import com.FlySky.dto.request.ReservaRequestDto;
 import com.FlySky.dto.response.HistorialClienteResponseDto;
-import com.FlySky.dto.response.ReservaResponseDto;
+import com.FlySky.dto.response.HistorialDiarioResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
-import com.FlySky.service.ReservaServiceImp;
+import com.FlySky.dto.response.ReservaResponseDto;
 import com.FlySky.service.IReservaService;
+import com.FlySky.service.ReservaServiceImp;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -42,6 +44,11 @@ public class ReservaController {
     @GetMapping("/preferencias/{idCliente}")
     public ResponseEntity<HistorialClienteResponseDto> obtenerReservaByCliente(@PathVariable long idCliente){
         return new ResponseEntity<>(service.obtenerReservaByCliente(idCliente), HttpStatus.OK);
+    }
+
+    @GetMapping("/resumen_diario/{fecha}")
+    public ResponseEntity<HistorialDiarioResponseDto> obtenerResumenDiario(@PathVariable LocalDate fecha){
+        return new ResponseEntity<>(service.obtenerResumenDiario(fecha), HttpStatus.OK);
     }
 
     @PostMapping()

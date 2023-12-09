@@ -93,6 +93,35 @@ public class ReservaServiceImp implements IReservaService{
     }
 
     @Override
+    public HistorialDiarioResponseDto obtenerResumenDiario(LocalDate date) {
+        List<Reserva> reservas = repository.findByFechaVenta(date);
+        if(reservas.isEmpty()){
+            throw new EntityNotFoundException("No hay Reservas registradas en esa fecha."); // Ataja ID no encontrados.
+        }
+        Short cantidad = 0;
+        Double recaudacion = 0.0;
+        HashMap<String, Short> destinosPopulares = new HashMap<>();
+        for(Reserva reserva : reservas){
+            if(reserva.getAsiento()!=null) {
+                cantidad++;
+                recaudacion += reserva.getAsiento().getPrecio();
+                Boolean existente = false;
+                for (String destino : destinosPopulares.keySet()) {
+                    if (destino.equals(reserva.getAsiento().getVuelo().getLugarLlegada())) {
+                        existente = true;
+                    }
+                }
+                if (!existente) {
+                    destinosPopulares.put(reserva.getAsiento().getVuelo().getLugarLlegada(), (short) 1);
+                } else {
+                    destinosPopulares.put(reserva.getAsiento().getVuelo().getLugarLlegada(), (short) (destinosPopulares.get(reserva.getAsiento().getVuelo().getLugarLlegada()) + 1));
+                }
+            }
+        }
+        return new HistorialDiarioResponseDto(date,cantidad,recaudacion,destinosPopulares);
+    }
+
+    @Override
     public ReservaResponseDto agregarReserva(ReservaRequestDto reservaRequestDto) {
         Reserva reserva = mapper.map(reservaRequestDto,Reserva.class);
         reserva.setAsiento(reserva.getAsiento());

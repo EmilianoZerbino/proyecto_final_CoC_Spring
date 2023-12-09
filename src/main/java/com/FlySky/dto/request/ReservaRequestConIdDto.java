@@ -1,7 +1,5 @@
 package com.FlySky.dto.request;
 
-import com.FlySky.entity.Asiento;
-import com.FlySky.entity.Cliente;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -18,8 +16,7 @@ import java.time.LocalDate;
 public class ReservaRequestConIdDto {
 
     @NotNull(message = "El campo Id no debe ser nulo")
-    @NotEmpty(message = "El campo Id no puede quedar vacio.")
-    private Long idReserva;
+    private Long id;
 
     @PastOrPresent(message = "La fecha de venta debe ser igual o anterior al dia de hoy.")
     //Como validar que la fecha sea formato correcto???

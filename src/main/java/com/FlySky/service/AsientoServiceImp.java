@@ -5,6 +5,7 @@ import com.FlySky.dto.request.AsientoRequestDto;
 import com.FlySky.dto.response.AsientoResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.entity.Asiento;
+import com.FlySky.exception.EntityAlreadyExistException;
 import com.FlySky.exception.EntityNotFoundException;
 import com.FlySky.exception.InsertionDBException;
 import com.FlySky.repository.IAsientoRepository;
@@ -59,6 +60,9 @@ public class AsientoServiceImp implements IAsientoService{
 
     @Override
     public AsientoResponseDto agregarAsiento(AsientoRequestDto asientoRequestDto) {
+        if(repository.findByNumeroAsiento(asientoRequestDto.getNumeroAsiento())!=null){
+            throw new EntityAlreadyExistException("Ya hay un Asiento con ese Numero de Identificación registrado en el Vuelo"); //Ataja errores de Numero de Asiento duplicados.
+        }
         Asiento asiento = mapper.map(asientoRequestDto,Asiento.class);
         Asiento persistAsiento = repository.save(asiento);
         if(asiento==null){
@@ -69,7 +73,7 @@ public class AsientoServiceImp implements IAsientoService{
 
     @Override
     public AsientoResponseDto editarAsiento(AsientoRequestConIdDto asientoRequestConIdDto) {
-        obtenerAsientoById(asientoRequestConIdDto.getIdAsiento()); // Verifica Excepcion NOTFOUND
+        obtenerAsientoById(asientoRequestConIdDto.getId()); // Verifica Excepcion NOTFOUND
         Asiento asiento = mapper.map(asientoRequestConIdDto,Asiento.class);
         Asiento persistAsiento = repository.save(asiento);
         return mapper.map(persistAsiento, AsientoResponseDto.class);

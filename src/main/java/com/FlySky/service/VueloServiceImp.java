@@ -2,10 +2,8 @@ package com.FlySky.service;
 
 import com.FlySky.dto.request.VueloRequestConIdDto;
 import com.FlySky.dto.request.VueloRequestDto;
-import com.FlySky.dto.response.VueloResponseDto;
-import com.FlySky.dto.response.VueloSinAerolineaResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
-import com.FlySky.entity.Aerolinea;
+import com.FlySky.dto.response.VueloResponseDto;
 import com.FlySky.entity.Asiento;
 import com.FlySky.entity.Vuelo;
 import com.FlySky.exception.EntityAlreadyExistException;
@@ -77,12 +75,21 @@ public class VueloServiceImp implements IVueloService{
     }
 
     @Override
+    public VueloResponseDto obtenerVueloByNumeroDeVueloAndAerolinea_Id(String numeroVuelo, Long aerolinea_Id) {
+        Vuelo vuelo = repository.findByNumeroVueloAndAerolinea_Id(numeroVuelo, aerolinea_Id);
+        if(vuelo==null){
+            throw new EntityNotFoundException("No hay Vuelo registrado con ese Numero de Vuelo en esa Aerolinea."); // Ataja ID no encontrados.
+        }
+        return mapper.map(vuelo, VueloResponseDto.class);
+    }
+
+    @Override
     public VueloResponseDto agregarVuelo(VueloRequestDto vueloRequestDto) {
-        Vuelo vuelo = mapper.map(vueloRequestDto,Vuelo.class);
-        vuelo.setAerolinea(vuelo.getAerolinea());
-        if(repository.findByNumeroVueloAndAerolinea(vuelo.getNumeroVuelo(),vuelo.getAerolinea())!=null){
+        if(repository.findByNumeroVueloAndAerolinea_Id(vueloRequestDto.getNumeroVuelo(), vueloRequestDto.getAerolinea().getId())!=null){
             throw new EntityAlreadyExistException("Ya hay un Vuelo con ese Numero de Identificación registrado en la Aerolinea"); //Ataja errores de DNI duplicados.
         }
+        Vuelo vuelo = mapper.map(vueloRequestDto,Vuelo.class);
+        vuelo.setAerolinea(vuelo.getAerolinea());
         for (Asiento asiento : vuelo.getAsientos()) {
             asiento.setVuelo(vuelo);
         }
@@ -102,7 +109,7 @@ public class VueloServiceImp implements IVueloService{
 
     @Override
     public VueloResponseDto editarVuelo(VueloRequestConIdDto vueloRequestConIdDto) {
-        obtenerVueloById(vueloRequestConIdDto.getIdVuelo()); // Verifica Excepcion NOTFOUND
+        obtenerVueloById(vueloRequestConIdDto.getId()); // Verifica Excepcion NOTFOUND
         Vuelo vuelo = mapper.map(vueloRequestConIdDto,Vuelo.class);
         for (Asiento asiento : vuelo.getAsientos()) {
             asiento.setVuelo(vuelo);

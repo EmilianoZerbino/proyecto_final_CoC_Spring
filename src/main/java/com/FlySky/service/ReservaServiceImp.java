@@ -2,8 +2,8 @@ package com.FlySky.service;
 
 import com.FlySky.dto.request.ReservaRequestConIdDto;
 import com.FlySky.dto.request.ReservaRequestDto;
-import com.FlySky.dto.response.ReservaResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
+import com.FlySky.dto.response.ReservaResponseDto;
 import com.FlySky.entity.Asiento;
 import com.FlySky.entity.Reserva;
 import com.FlySky.exception.EntityAlreadyExistException;
@@ -16,7 +16,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -61,10 +60,10 @@ public class ReservaServiceImp implements IReservaService{
         Reserva reserva = mapper.map(reservaRequestDto,Reserva.class);
         reserva.setAsiento(reserva.getAsiento());
         reserva.setCliente(reserva.getCliente());
-        if(clienteRepository.findById(reserva.getCliente().getIdCliente()).isEmpty()){
+        if(clienteRepository.findById(reserva.getCliente().getId()).isEmpty()){
             throw new EntityNotFoundException("No hay Cliente registrado con ese ID."); // Ataja ID no encontrados.
         }
-        if(asientoRepository.findById(reserva.getAsiento().getIdAsiento()).isEmpty()){
+        if(asientoRepository.findById(reserva.getAsiento().getId()).isEmpty()){
             throw new EntityNotFoundException("No hay Asiento registrado con ese ID."); // Ataja ID no encontrados.
         }
         //HACER EXCEPCION DE ASIENTO YA RESERVADO!!!!!!!!!!!!!
@@ -74,7 +73,7 @@ public class ReservaServiceImp implements IReservaService{
         reserva.setFechaVenta(LocalDate.now());
         reserva.setEstado("Espera");
         Reserva persistReserva = repository.save(reserva);
-        Optional<Asiento> asiento = asientoRepository.findById(reserva.getAsiento().getIdAsiento());
+        Optional<Asiento> asiento = asientoRepository.findById(reserva.getAsiento().getId());
         asiento.get().setEstaDisponible(false);
         Asiento resultado = asiento.orElse(null);
         asientoRepository.save(resultado);
@@ -86,7 +85,7 @@ public class ReservaServiceImp implements IReservaService{
 
     @Override
     public ReservaResponseDto editarReserva(ReservaRequestConIdDto reservaRequestConIdDto) {
-        obtenerReservaById(reservaRequestConIdDto.getIdReserva()); // Verifica Excepcion NOTFOUND
+        obtenerReservaById(reservaRequestConIdDto.getId()); // Verifica Excepcion NOTFOUND
         Reserva reserva = mapper.map(reservaRequestConIdDto,Reserva.class);
         reserva.setAsiento(reserva.getAsiento());
         reserva.setCliente(reserva.getCliente());

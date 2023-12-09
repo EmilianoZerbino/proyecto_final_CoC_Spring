@@ -13,9 +13,9 @@ import java.util.List;
 @Data
 public class VueloResponseDto {
 
-    private Long idVuelo;
+    private Long id;
 
-    private Long numeroVuelo;
+    private String numeroVuelo;
 
     private String lugarPartida;
     private String lugarLlegada;

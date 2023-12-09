@@ -1,7 +1,5 @@
 package com.FlySky.dto.response;
 
-import com.FlySky.entity.Reserva;
-import com.FlySky.entity.Vuelo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class AsientoResponseDto {
 
-    private Long idAsiento;
+    private Long id;
 
-    private Long numeroAsiento;
+    private Short numeroAsiento;
     private String categoria;
     private Boolean esVentanilla;
     private Double precio;

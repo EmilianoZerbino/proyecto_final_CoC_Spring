@@ -17,7 +17,7 @@ public class Reserva {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idReserva;
+    private Long id;
 
     private LocalDate fechaVenta;
 
@@ -30,7 +30,7 @@ public class Reserva {
     private Asiento asiento;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", referencedColumnName = "idCliente",nullable = false)
+    @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
 }

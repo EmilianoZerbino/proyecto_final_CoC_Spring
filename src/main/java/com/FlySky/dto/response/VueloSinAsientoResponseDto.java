@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @Data
 public class VueloSinAsientoResponseDto {
 
-    private Long idVuelo;
+    private Long id;
 
-    private Long numeroVuelo;
+    private String numeroVuelo;
 
     private String lugarPartida;
     private String lugarLlegada;

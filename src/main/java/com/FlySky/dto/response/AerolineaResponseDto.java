@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 public class AerolineaResponseDto {
 
-    private Long idAerolinea;
+    private Long id;
 
     private String nombre;
 

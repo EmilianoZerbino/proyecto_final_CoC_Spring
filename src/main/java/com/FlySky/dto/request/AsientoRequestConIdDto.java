@@ -1,7 +1,5 @@
 package com.FlySky.dto.request;
 
-import com.FlySky.entity.Reserva;
-import com.FlySky.entity.Vuelo;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -15,11 +13,10 @@ import lombok.NoArgsConstructor;
 public class AsientoRequestConIdDto {
 
     @NotNull(message = "El campo Id no debe ser nulo")
-    @NotEmpty(message = "El campo Id no puede quedar vacio.")
-    private Long idAsiento;
+    private Long id;
 
     @NotNull(message = "El campo Numero de Asiento no debe ser nulo")
-    private Long numeroAsiento;
+    private Short numeroAsiento;
 
     @NotNull(message = "El campo categoria no debe ser nulo")
     @NotEmpty(message = "El campo categoria no puede quedar vacio.")
@@ -35,6 +32,6 @@ public class AsientoRequestConIdDto {
     //Validar que sea un Booleano???
     private Boolean estaDisponible;
 
-    private VueloRequestConIdDto vuelo;
+    private IdDto vuelo;
 
 }

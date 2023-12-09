@@ -1,12 +1,9 @@
 package com.FlySky.dto.request;
 
-import com.FlySky.entity.Aerolinea;
-import com.FlySky.entity.Asiento;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +17,9 @@ import java.util.List;
 public class VueloRequestDto {
 
     @NotNull(message = "El campo Numero de Vuelo no debe ser nulo")
-    private Long numeroVuelo;
+    @NotEmpty(message = "El campo Numero de Vuelo no puede quedar vacio.")
+    @Size(min=3, max=6, message = "El Numero de Vuelo debe contener entre 3 y 7 caracteres.")
+    private String numeroVuelo;
 
     @NotNull(message = "El campo Lugar de Partida no debe ser nulo")
     @NotEmpty(message = "El campo Lugar de Partida no puede quedar vacio.")
@@ -40,7 +39,7 @@ public class VueloRequestDto {
 
     private Integer conexion;
 
-    private AerolineaRequestConIdDto aerolinea;
+    private IdDto aerolinea;
 
     private List<AsientoRequestDto> asientos;
 }

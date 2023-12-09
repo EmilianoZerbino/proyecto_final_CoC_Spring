@@ -3,6 +3,7 @@ package com.FlySky.controller;
 import com.FlySky.dto.request.AerolineaRequestConIdDto;
 import com.FlySky.dto.request.AerolineaRequestDto;
 import com.FlySky.dto.response.AerolineaResponseDto;
+import com.FlySky.dto.response.AerolineaSinVueloResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.service.AerolineaServiceImp;
 import com.FlySky.service.IAerolineaService;
@@ -32,9 +33,9 @@ public class AerolineaController {
         return new ResponseEntity<>(service.obtenerAerolineas(), HttpStatus.OK);
     }
 
-    @GetMapping("/disponibles")
-    public ResponseEntity<List<AerolineaResponseDto>> obtenerAerolineasConAsientosDisponibles(){
-        return new ResponseEntity<>(service.obtenerAerolineasConAsientosDisponibles(), HttpStatus.OK);
+    @GetMapping("/aerolineas_sin_vuelos")
+    public ResponseEntity<List<AerolineaSinVueloResponseDto>> obtenerAerolineasSinVuelos(){
+        return new ResponseEntity<>(service.obtenerAerolineasSinVuelos(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -43,12 +44,13 @@ public class AerolineaController {
     }
 
     @PostMapping()
-    public ResponseEntity<AerolineaResponseDto> agregarAerolinea(@RequestBody @Valid AerolineaRequestDto aerolineaRequestDto){
+    public ResponseEntity<AerolineaSinVueloResponseDto> agregarAerolinea(@RequestBody @Valid AerolineaRequestDto aerolineaRequestDto){
         return new ResponseEntity<>(service.agregarAerolinea(aerolineaRequestDto),HttpStatus.OK);
     }
 
     @PutMapping()
-    public ResponseEntity<AerolineaResponseDto> editarAerolinea(@RequestBody @Valid AerolineaRequestConIdDto aerolineaRequestConIdDto){
+    public ResponseEntity<AerolineaSinVueloResponseDto> editarAerolinea(@RequestBody @Valid AerolineaRequestConIdDto aerolineaRequestConIdDto){
+        System.out.println("YYYYYYYYYYYYYYYY1");
         return new ResponseEntity<>(service.editarAerolinea(aerolineaRequestConIdDto),HttpStatus.OK);
     }
 

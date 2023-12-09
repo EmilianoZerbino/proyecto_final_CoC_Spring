@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,9 +17,9 @@ public class Vuelo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idVuelo;
+    private Long id;
 
-    private Long numeroVuelo;
+    private String numeroVuelo;
 
     private String lugarPartida;
     private String lugarLlegada;
@@ -30,7 +29,7 @@ public class Vuelo {
 
     private Integer conexion;
 
-    @ManyToOne //COMPLETAR
+    @ManyToOne
     @JoinColumn(name = "aerolinea_id", nullable = false)
     private Aerolinea aerolinea;
 

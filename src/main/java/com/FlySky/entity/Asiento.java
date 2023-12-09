@@ -13,19 +13,19 @@ public class Asiento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAsiento;
+    private Long id;
 
-    private Long numeroAsiento;
+    private Short numeroAsiento;
     private String categoria;
     private Boolean esVentanilla;
     private Double precio;
     private Boolean estaDisponible;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "vuelo_id", nullable = false)
     private Vuelo vuelo;
 
-    @OneToOne(mappedBy = "asiento",cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "asiento")
     private Reserva reserva;
 
 }

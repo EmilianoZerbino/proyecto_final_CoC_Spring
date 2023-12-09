@@ -1,7 +1,5 @@
 package com.FlySky.dto.response;
 
-import com.FlySky.entity.Asiento;
-import com.FlySky.entity.Cliente;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +11,7 @@ import java.time.LocalDate;
 @Data
 public class ReservaResponseDto {
 
-    private Long idReserva;
+    private Long id;
 
     private LocalDate fechaVenta;
 

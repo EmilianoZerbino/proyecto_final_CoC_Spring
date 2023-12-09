@@ -16,11 +16,11 @@ public class Aerolinea {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAerolinea;
+    private Long id;
 
     private String nombre;
 
-    @OneToMany(mappedBy = "aerolinea", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "aerolinea", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Vuelo> vuelos;
 
 }

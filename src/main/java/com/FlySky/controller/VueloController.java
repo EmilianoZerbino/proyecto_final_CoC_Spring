@@ -2,11 +2,10 @@ package com.FlySky.controller;
 
 import com.FlySky.dto.request.VueloRequestConIdDto;
 import com.FlySky.dto.request.VueloRequestDto;
-import com.FlySky.dto.response.VueloResponseDto;
-import com.FlySky.dto.response.VueloSinAerolineaResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
-import com.FlySky.service.VueloServiceImp;
+import com.FlySky.dto.response.VueloResponseDto;
 import com.FlySky.service.IVueloService;
+import com.FlySky.service.VueloServiceImp;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +30,11 @@ public class VueloController {
     @GetMapping()
     public ResponseEntity<List<VueloResponseDto>> obtenerVuelos(){
         return new ResponseEntity<>(service.obtenerVuelos(), HttpStatus.OK);
+    }
+
+    @GetMapping("/vuelo_por_numero_y_aerolineaId/{numeroVuelo}/{aerolineaId}")
+    public ResponseEntity<VueloResponseDto> obtenerVuelosByNumeroAndAerolinea(@PathVariable String numeroVuelo, @PathVariable long aerolineaId){
+        return new ResponseEntity<>(service.obtenerVueloByNumeroDeVueloAndAerolinea_Id(numeroVuelo,aerolineaId), HttpStatus.OK);
     }
 
     @GetMapping("/disponibles")

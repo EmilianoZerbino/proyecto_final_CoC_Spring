@@ -5,6 +5,7 @@ import com.FlySky.dto.request.ClienteRequestDto;
 import com.FlySky.dto.response.ClienteResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.entity.Cliente;
+import com.FlySky.exception.EntityAlreadyExistException;
 import com.FlySky.exception.EntityNotFoundException;
 import com.FlySky.exception.InsertionDBException;
 import com.FlySky.repository.IClienteRepository;
@@ -48,6 +49,15 @@ public class ClienteServiceImp implements IClienteService{
 
     @Override
     public ClienteResponseDto agregarCliente(ClienteRequestDto clienteRequestDto) {
+        if(repository.findByDni(clienteRequestDto.getDni())!=null){
+            throw new EntityAlreadyExistException("Ya hay un Cliente registrado con ese DNI"); //Ataja errores de DNI duplicados.
+        }
+        if(repository.findByEmail(clienteRequestDto.getEmail())!=null){
+            throw new EntityAlreadyExistException("Ya hay un Cliente registrado con ese email"); //Ataja errores de email duplicados.
+        }
+        if(repository.findByNombreAndApellido(clienteRequestDto.getNombre(), clienteRequestDto.getApellido())!=null){
+            throw new EntityAlreadyExistException("Ya hay un Cliente registrado con ese Nombre y Apellido"); //Ataja errores de Nombre y Apellido duplicados.
+        }
         Cliente cliente = mapper.map(clienteRequestDto,Cliente.class);
         Cliente persistCliente = repository.save(cliente);
         if(cliente==null){
@@ -58,8 +68,20 @@ public class ClienteServiceImp implements IClienteService{
 
     @Override
     public ClienteResponseDto editarCliente(ClienteRequestConIdDto clienteRequestConIdDto) {
-        obtenerClienteById(clienteRequestConIdDto.getIdCliente()); // Verifica Excepcion NOTFOUND
-        Cliente cliente = mapper.map(clienteRequestConIdDto,Cliente.class);
+        Cliente cliente = repository.findByDni(clienteRequestConIdDto.getDni());
+        if(cliente!=null && cliente.getId()!=clienteRequestConIdDto.getId()){
+            throw new EntityAlreadyExistException("Ya hay un Cliente registrado con ese DNI"); //Ataja errores de DNI duplicados.
+        }
+        cliente = repository.findByEmail(clienteRequestConIdDto.getEmail());
+        if(cliente!=null && cliente.getId()!=clienteRequestConIdDto.getId()){
+            throw new EntityAlreadyExistException("Ya hay un Cliente registrado con ese email"); //Ataja errores de email duplicados.
+        }
+        cliente = repository.findByNombreAndApellido(clienteRequestConIdDto.getNombre(),clienteRequestConIdDto.getApellido());
+        if(cliente!=null && cliente.getId()!=clienteRequestConIdDto.getId()){
+            throw new EntityAlreadyExistException("Ya hay un Cliente registrado con ese Nombre y Apellido"); //Ataja errores de Nombre y Apellido duplicados.
+        }
+        obtenerClienteById(clienteRequestConIdDto.getId()); // Verifica Excepcion NOTFOUND
+        cliente = mapper.map(clienteRequestConIdDto,Cliente.class);
         Cliente persistCliente = repository.save(cliente);
         return mapper.map(persistCliente, ClienteResponseDto.class);
     }

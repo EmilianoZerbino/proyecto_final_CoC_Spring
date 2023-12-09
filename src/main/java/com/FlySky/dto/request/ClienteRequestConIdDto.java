@@ -1,12 +1,9 @@
 package com.FlySky.dto.request;
 
-import com.FlySky.entity.Reserva;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,8 +14,7 @@ import java.util.List;
 public class ClienteRequestConIdDto {
 
     @NotNull(message = "El campo Id no debe ser nulo")
-    @NotEmpty(message = "El campo Id no puede quedar vacio.")
-    private Long idCliente;
+    private Long id;
 
     @NotNull(message = "El campo nombre no debe ser nulo")
     @NotEmpty(message = "El campo nombre no puede quedar vacio.")

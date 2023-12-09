@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface IAsientoRepository  extends JpaRepository<Asiento,Long> {
 
+    Asiento findByNumeroAsiento(Short numeroAsiento);
     List<Asiento> findByEstaDisponible(Boolean disponibilidad);
 }

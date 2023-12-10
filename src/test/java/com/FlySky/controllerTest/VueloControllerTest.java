@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-import static com.FlySky.util.FactoryOfObjects.*;
+import static com.FlySky.util.FactoryOfDtos.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;

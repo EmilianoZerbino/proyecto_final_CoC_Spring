@@ -50,7 +50,6 @@ public class AerolineaController {
 
     @PutMapping()
     public ResponseEntity<AerolineaSinVueloResponseDto> editarAerolinea(@RequestBody @Valid AerolineaRequestConIdDto aerolineaRequestConIdDto){
-        System.out.println("YYYYYYYYYYYYYYYY1");
         return new ResponseEntity<>(service.editarAerolinea(aerolineaRequestConIdDto),HttpStatus.OK);
     }
 

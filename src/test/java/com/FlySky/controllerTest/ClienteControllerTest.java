@@ -36,9 +36,9 @@ public class ClienteControllerTest {
 
         //ARRANGE
 
-        List<ClienteResponseDto> serviceResponse = listOfClientes();
+        List<ClienteResponseDto> serviceResponse = listOfClientesDto();
 
-        ResponseEntity<List<ClienteResponseDto>> expected = new ResponseEntity<>(listOfClientes(), HttpStatus.OK);
+        ResponseEntity<List<ClienteResponseDto>> expected = new ResponseEntity<>(listOfClientesDto(), HttpStatus.OK);
 
         when(service.obtenerClientes()).thenReturn(serviceResponse);
 

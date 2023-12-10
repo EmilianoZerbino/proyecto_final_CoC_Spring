@@ -35,9 +35,9 @@ public class VueloControllerTest {
 
         //ARRANGE
 
-        List<VueloResponseDto> serviceResponse = listOfVuelos();
+        List<VueloResponseDto> serviceResponse = listOfVuelosDto();
 
-        ResponseEntity<List<VueloResponseDto>> expected = new ResponseEntity<>(listOfVuelos(), HttpStatus.OK);
+        ResponseEntity<List<VueloResponseDto>> expected = new ResponseEntity<>(listOfVuelosDto(), HttpStatus.OK);
 
         when(service.obtenerVuelos()).thenReturn(serviceResponse);
 
@@ -77,9 +77,9 @@ public class VueloControllerTest {
 
         //ARRANGE
 
-        List<VueloResponseDto> serviceResponse = listOfVuelos();
+        List<VueloResponseDto> serviceResponse = listOfVuelosDto();
 
-        ResponseEntity<List<VueloResponseDto>> expected = new ResponseEntity<>(listOfVuelos(), HttpStatus.OK);
+        ResponseEntity<List<VueloResponseDto>> expected = new ResponseEntity<>(listOfVuelosDto(), HttpStatus.OK);
 
         when(service.obtenerVuelosConAsientosDisponibles()).thenReturn(serviceResponse);
 

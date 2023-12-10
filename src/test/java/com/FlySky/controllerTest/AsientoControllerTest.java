@@ -36,9 +36,9 @@ public class AsientoControllerTest {
 
         //ARRANGE
 
-        List<AsientoResponseDto> serviceResponse = listOfAsientos();
+        List<AsientoResponseDto> serviceResponse = listOfAsientosDto();
 
-        ResponseEntity<List<AsientoResponseDto>> expected = new ResponseEntity<>(listOfAsientos(), HttpStatus.OK);
+        ResponseEntity<List<AsientoResponseDto>> expected = new ResponseEntity<>(listOfAsientosDto(), HttpStatus.OK);
 
         when(service.obtenerAsientos()).thenReturn(serviceResponse);
 
@@ -57,9 +57,9 @@ public class AsientoControllerTest {
 
         //ARRANGE
 
-        List<AsientoResponseDto> serviceResponse = listOfAsientos();
+        List<AsientoResponseDto> serviceResponse = listOfAsientosDto();
 
-        ResponseEntity<List<AsientoResponseDto>> expected = new ResponseEntity<>(listOfAsientos(), HttpStatus.OK);
+        ResponseEntity<List<AsientoResponseDto>> expected = new ResponseEntity<>(listOfAsientosDto(), HttpStatus.OK);
 
         when(service.obtenerAsientosDisponibles()).thenReturn(serviceResponse);
 

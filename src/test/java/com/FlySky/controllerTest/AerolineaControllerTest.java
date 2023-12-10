@@ -37,9 +37,9 @@ public class AerolineaControllerTest {
 
         //ARRANGE
 
-        List<AerolineaResponseDto> serviceResponse = listOfAerolineas();
+        List<AerolineaResponseDto> serviceResponse = listOfAerolineasDto();
 
-        ResponseEntity<List<AerolineaResponseDto>> expected = new ResponseEntity<>(listOfAerolineas(), HttpStatus.OK);
+        ResponseEntity<List<AerolineaResponseDto>> expected = new ResponseEntity<>(listOfAerolineasDto(), HttpStatus.OK);
 
         when(service.obtenerAerolineas()).thenReturn(serviceResponse);
 
@@ -58,9 +58,9 @@ public class AerolineaControllerTest {
 
         //ARRANGE
 
-        List<AerolineaSinVueloResponseDto> serviceResponse = listOfAerolineasSinVuelo();
+        List<AerolineaSinVueloResponseDto> serviceResponse = listOfAerolineasSinVueloDto();
 
-        ResponseEntity<List<AerolineaSinVueloResponseDto>> expected = new ResponseEntity<>(listOfAerolineasSinVuelo(), HttpStatus.OK);
+        ResponseEntity<List<AerolineaSinVueloResponseDto>> expected = new ResponseEntity<>(listOfAerolineasSinVueloDto(), HttpStatus.OK);
 
         when(service.obtenerAerolineasSinVuelos()).thenReturn(serviceResponse);
 

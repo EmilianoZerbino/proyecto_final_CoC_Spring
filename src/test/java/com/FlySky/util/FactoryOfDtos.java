@@ -11,10 +11,9 @@ import java.util.List;
 
 public class FactoryOfDtos {
 
-
 //Aerolinea---------------------------------------------------------------------------------------
 
-    public static List<AerolineaResponseDto> listOfAerolineas(){
+    public static List<AerolineaResponseDto> listOfAerolineasDto(){
         List<AerolineaResponseDto> response = new ArrayList<>();
 
         response.add(new AerolineaResponseDto(1L,"Aerolineas Argentinas",null));
@@ -26,7 +25,7 @@ public class FactoryOfDtos {
         return response;
     }
 
-    public static List<AerolineaSinVueloResponseDto> listOfAerolineasSinVuelo(){
+    public static List<AerolineaSinVueloResponseDto> listOfAerolineasSinVueloDto(){
         List<AerolineaSinVueloResponseDto> response = new ArrayList<>();
 
         response.add(new AerolineaSinVueloResponseDto(1L,"Aerolineas Argentinas"));
@@ -58,7 +57,7 @@ public class FactoryOfDtos {
 
 //Vuelo--------------------------------------------------------------------------------------------
 
-    public static List<VueloResponseDto> listOfVuelos(){
+    public static List<VueloResponseDto> listOfVuelosDto(){
         List<VueloResponseDto> response = new ArrayList<>();
 
         response.add(new VueloResponseDto(1L,"ARG001","Aeroparque","Cordoba",  LocalDateTime.of(LocalDate.of(2025,12,12), LocalTime.of(12,0)), LocalDateTime.of(LocalDate.of(2025,12,12), LocalTime.of(12,0)),1,newAerolineaSinVueloResponseDto(),null));
@@ -85,7 +84,7 @@ public class FactoryOfDtos {
 
 //Asiento------------------------------------------------------------------------------------------
 
-    public static List<AsientoResponseDto> listOfAsientos(){
+    public static List<AsientoResponseDto> listOfAsientosDto(){
         List<AsientoResponseDto> response = new ArrayList<>();
 
         response.add(new AsientoResponseDto(1L, (short) 1,"Comun",true,  123.0,true,null,null));
@@ -112,7 +111,7 @@ public class FactoryOfDtos {
 
 //Reserva------------------------------------------------------------------------------------------
 
-    public static List<ReservaResponseDto> listOfReservas(){
+    public static List<ReservaResponseDto> listOfReservasDto(){
         List<ReservaResponseDto> response = new ArrayList<>();
 
         response.add(new ReservaResponseDto(1L,LocalDate.of(2025,12,12),"efectivo","Espera",null,null));
@@ -124,7 +123,7 @@ public class FactoryOfDtos {
         return response;
     }
 
-    public static List<ReservaSinClienteResponseDto> listOfReservasSinCliente(){
+    public static List<ReservaSinClienteResponseDto> listOfReservasSinClienteDto(){
         List<ReservaSinClienteResponseDto> response = new ArrayList<>();
 
         response.add(new ReservaSinClienteResponseDto(1L,LocalDate.of(2025,12,12),"efectivo","Espera",null));
@@ -149,7 +148,7 @@ public class FactoryOfDtos {
     }
 
     public static HistorialClienteResponseDto newHistorialClienteResponseDto(){
-        return new HistorialClienteResponseDto(newClienteSinReservaResponseDto(),listOfReservasSinCliente(),(short) 1,null);
+        return new HistorialClienteResponseDto(newClienteSinReservaResponseDto(), listOfReservasSinClienteDto(),(short) 1,null);
     }
 
     public static HistorialDiarioResponseDto newHistorialDiarioResponseDto(){
@@ -164,7 +163,7 @@ public class FactoryOfDtos {
 
 //Cliente------------------------------------------------------------------------------------------
 
-    public static List<ClienteResponseDto> listOfClientes(){
+    public static List<ClienteResponseDto> listOfClientesDto(){
         List<ClienteResponseDto> response = new ArrayList<>();
         response.add(new ClienteResponseDto(1L,"Juan","Suarez","12345678",LocalDate.of(1990,12,12),"Av. Libertador 123","111541234567","juanDusrez@gmail.com",null));
         response.add(new ClienteResponseDto(2L,"Juan","Suarez","12345678",LocalDate.of(1990,12,12),"Av. Libertador 123","111541234567","juanDusrez@gmail.com",null));

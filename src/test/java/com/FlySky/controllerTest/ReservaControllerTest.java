@@ -41,9 +41,9 @@ public class ReservaControllerTest {
 
         //ARRANGE
 
-        List<ReservaResponseDto> serviceResponse = listOfReservas();
+        List<ReservaResponseDto> serviceResponse = listOfReservasDto();
 
-        ResponseEntity<List<ReservaResponseDto>> expected = new ResponseEntity<>(listOfReservas(), HttpStatus.OK);
+        ResponseEntity<List<ReservaResponseDto>> expected = new ResponseEntity<>(listOfReservasDto(), HttpStatus.OK);
 
         when(service.obtenerReservas()).thenReturn(serviceResponse);
 

@@ -4,6 +4,7 @@ import com.FlySky.dto.request.VueloRequestConIdDto;
 import com.FlySky.dto.request.VueloRequestDto;
 import com.FlySky.dto.response.VueloResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
+import com.FlySky.repository.IAerolineaRepository;
 import com.FlySky.repository.IVueloRepository;
 import com.FlySky.service.VueloServiceImp;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,9 @@ public class VueloServiceTest {
 
     @Mock
     IVueloRepository repository;
+    @Mock
+    IAerolineaRepository aerolineaRepository;
+
 
     @InjectMocks
     VueloServiceImp service;
@@ -96,6 +100,7 @@ public class VueloServiceTest {
         VueloResponseDto expected = newVueloResponseDto();
 
         when(repository.save(any())).thenReturn(newVuelo());
+        when(aerolineaRepository.findById(anyLong())).thenReturn(newOptionalAerolinea());
 
         //ACT
 
@@ -117,6 +122,7 @@ public class VueloServiceTest {
 
         when(repository.findById(anyLong())).thenReturn(newOptionalVuelo());
         when(repository.save(any())).thenReturn(newVuelo());
+        when(aerolineaRepository.findById(anyLong())).thenReturn(newOptionalAerolinea());
 
         //ACT
 

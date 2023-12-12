@@ -4,11 +4,13 @@ import com.FlySky.dto.request.VueloRequestConIdDto;
 import com.FlySky.dto.request.VueloRequestDto;
 import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.dto.response.VueloResponseDto;
+import com.FlySky.entity.Aerolinea;
 import com.FlySky.entity.Asiento;
 import com.FlySky.entity.Vuelo;
 import com.FlySky.exception.EntityAlreadyExistException;
 import com.FlySky.exception.EntityNotFoundException;
 import com.FlySky.exception.InsertionDBException;
+import com.FlySky.repository.IAerolineaRepository;
 import com.FlySky.repository.IVueloRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -21,10 +23,13 @@ import java.util.Optional;
 public class VueloServiceImp implements IVueloService{
 
     IVueloRepository repository;
+
+    IAerolineaRepository aerolineaRepository;
     ModelMapper mapper;
 
-    public VueloServiceImp(IVueloRepository repository){
+    public VueloServiceImp(IVueloRepository repository, IAerolineaRepository aerolineaRepository){
         this.repository = repository;
+        this.aerolineaRepository = aerolineaRepository;
         mapper = new ModelMapper();
     }
 
@@ -85,6 +90,10 @@ public class VueloServiceImp implements IVueloService{
 
     @Override
     public VueloResponseDto agregarVuelo(VueloRequestDto vueloRequestDto) {
+        Optional<Aerolinea> aerolinea = aerolineaRepository.findById(vueloRequestDto.getAerolinea().getId());
+        if (aerolinea.isEmpty()) {
+            throw new EntityNotFoundException("No existe la Aerolinea donde intenta cargar el vuelo"); // Ataja ID no encontrados.
+        }
         if(repository.findByNumeroVueloAndAerolinea_Id(vueloRequestDto.getNumeroVuelo(), vueloRequestDto.getAerolinea().getId())!=null){
             throw new EntityAlreadyExistException("Ya hay un Vuelo con ese Numero de Identificación registrado en la Aerolinea"); //Ataja errores de DNI duplicados.
         }
@@ -109,6 +118,10 @@ public class VueloServiceImp implements IVueloService{
 
     @Override
     public VueloResponseDto editarVuelo(VueloRequestConIdDto vueloRequestConIdDto) {
+        Optional<Aerolinea> aerolinea = aerolineaRepository.findById(vueloRequestConIdDto.getAerolinea().getId());
+        if (aerolinea.isEmpty()) {
+            throw new EntityNotFoundException("No existe la Aerolinea donde intenta cargar el vuelo"); // Ataja ID no encontrados.
+        }
         obtenerVueloById(vueloRequestConIdDto.getId()); // Verifica Excepcion NOTFOUND
         Vuelo vuelo = mapper.map(vueloRequestConIdDto,Vuelo.class);
         for (Asiento asiento : vuelo.getAsientos()) {

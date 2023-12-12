@@ -5,10 +5,12 @@ import com.FlySky.dto.request.AsientoRequestDto;
 import com.FlySky.dto.response.AsientoResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.entity.Asiento;
+import com.FlySky.entity.Vuelo;
 import com.FlySky.exception.EntityAlreadyExistException;
 import com.FlySky.exception.EntityNotFoundException;
 import com.FlySky.exception.InsertionDBException;
 import com.FlySky.repository.IAsientoRepository;
+import com.FlySky.repository.IVueloRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +22,12 @@ import java.util.Optional;
 public class AsientoServiceImp implements IAsientoService{
 
     IAsientoRepository repository;
+    IVueloRepository vueloRepository;
     ModelMapper mapper;
 
-    public AsientoServiceImp(IAsientoRepository repository){
+    public AsientoServiceImp(IAsientoRepository repository, IVueloRepository vueloRepository){
         this.repository = repository;
+        this.vueloRepository=vueloRepository;
         mapper = new ModelMapper();
     }
 
@@ -63,6 +67,10 @@ public class AsientoServiceImp implements IAsientoService{
         if(repository.findByNumeroAsiento(asientoRequestDto.getNumeroAsiento())!=null){
             throw new EntityAlreadyExistException("Ya hay un Asiento con ese Numero de Identificación registrado en el Vuelo"); //Ataja errores de Numero de Asiento duplicados.
         }
+        Optional<Vuelo> vuelo = vueloRepository.findById(asientoRequestDto.getVuelo().getId());
+        if (vuelo.isEmpty()) {
+            throw new EntityNotFoundException("No existe el vuelo donde intenta cargar el asiento"); // Ataja ID no encontrados.
+        }
         Asiento asiento = mapper.map(asientoRequestDto,Asiento.class);
         Asiento persistAsiento = repository.save(asiento);
         if(asiento==null){
@@ -74,6 +82,10 @@ public class AsientoServiceImp implements IAsientoService{
     @Override
     public AsientoResponseDto editarAsiento(AsientoRequestConIdDto asientoRequestConIdDto) {
         obtenerAsientoById(asientoRequestConIdDto.getId()); // Verifica Excepcion NOTFOUND
+        Optional<Vuelo> vuelo = vueloRepository.findById(asientoRequestConIdDto.getVuelo().getId());
+        if (vuelo.isEmpty()) {
+            throw new EntityNotFoundException("No existe el vuelo donde intenta cargar el asiento"); // Ataja ID no encontrados.
+        }
         Asiento asiento = mapper.map(asientoRequestConIdDto,Asiento.class);
         Asiento persistAsiento = repository.save(asiento);
         return mapper.map(persistAsiento, AsientoResponseDto.class);

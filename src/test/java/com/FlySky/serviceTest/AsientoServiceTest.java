@@ -5,6 +5,7 @@ import com.FlySky.dto.request.AsientoRequestDto;
 import com.FlySky.dto.response.AsientoResponseDto;
 import com.FlySky.dto.response.MensajeResponseDto;
 import com.FlySky.repository.IAsientoRepository;
+import com.FlySky.repository.IVueloRepository;
 import com.FlySky.service.AsientoServiceImp;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +27,8 @@ public class AsientoServiceTest {
 
     @Mock
     IAsientoRepository repository;
-
+    @Mock
+    IVueloRepository vueloRepository;
     @InjectMocks
     AsientoServiceImp service;
 
@@ -96,6 +98,7 @@ public class AsientoServiceTest {
         AsientoResponseDto expected = newAsientoResponseDto();
 
         when(repository.save(any())).thenReturn(newAsiento());
+        when(vueloRepository.findById(anyLong())).thenReturn(newOptionalVuelo());
 
         //ACT
 
@@ -117,6 +120,7 @@ public class AsientoServiceTest {
 
         when(repository.findById(anyLong())).thenReturn(newOptionalAsiento());
         when(repository.save(any())).thenReturn(newAsiento());
+        when(vueloRepository.findById(anyLong())).thenReturn(newOptionalVuelo());
 
         //ACT
 

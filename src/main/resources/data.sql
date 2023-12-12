@@ -16,6 +16,7 @@ INSERT INTO  `vuelos` (`numero_vuelo`,`lugar_partida`,`lugar_llegada`,`horario_p
                         ('ARG005','Ezeiza','Mexico DF','2025-12-12T12:00:00','2025-12-12T12:00:00',null,1);
 
 
+
 INSERT INTO  `ASIENTO` (`numero_asiento`,`categoria`,`es_ventanilla`,`precio`,`esta_disponible`,`vuelo_id`)
                 VALUES
                         (1,'Comun',true,123.0,true,1),
